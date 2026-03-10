@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>index</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>CMPS3160_Project</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7796,17 +7796,30 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a52d433b">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Generate-CSV-using-NBA-api">Generate CSV using NBA api<a class="anchor-link" href="#Generate-CSV-using-NBA-api">¶</a></h1>
+<h1 id="NBA-Scoring-Model-(Milestone-1)-by-Davis-Voelkel-and-Meyer-Polanco">NBA Scoring Model (Milestone 1) by Davis Voelkel and Meyer Polanco<a class="anchor-link" href="#NBA-Scoring-Model-(Milestone-1)-by-Davis-Voelkel-and-Meyer-Polanco">¶</a></h1><p><a href="https://meyerpolancoedu.github.io/">Github Pages Link</a></p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3660c0c4">
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h1 id="Project-Plan">Project Plan<a class="anchor-link" href="#Project-Plan">¶</a></h1><p>We plan to create a normal distribution model to predict scoring in a given future game. To do this, we need to create an estimator function of the true mean and variance of a player's scoring, which take a matrix x as a parameter. To find x, we will find the metrics with the highest positive or negative correlation to scoring, and then build the estimator functions around that. The model is meant to predict the points scored in the next future game. Because our project presentation takes place after the NBA season is over, we will either be predicting points for the upcoming 2026-2027 data, or using the past data to predict games for the current season.</p>
+<h1 id="Dataset">Dataset<a class="anchor-link" href="#Dataset">¶</a></h1><p>We plan to use the official NBA game stat dataset. This dataset contains game-by-game statistical information for each player in a given nba season. Some of the statistics found in this data include minutes played, points,steals, rebounds, field goal percentage,etc. With just this basic data, since advanced metrics are formulas of our basic ones, we can broadcast columns of many advanced metrics as well. This data along with the advanced metrics derived from it will give us a lot of information which we can use to build the best estimator function described above. We plan to access this data set through the nba_api client found <a href="https://github.com/swar/nba_api/tree/master">here</a>. The game logs for 2003-2025 can be found in <em>our</em> github repo found <a href="https://github.com/dgvoelkel/CMPS3160project">here</a>. The game logs for the current season need to be continuely regenerated to account for the ongoing season. We build this contemporary data by using the <code>csv_generator</code> program that can be found in our github.</p>
+<h1 id="Collaboration-Plan">Collaboration Plan<a class="anchor-link" href="#Collaboration-Plan">¶</a></h1><p>We plan to use a shared Google Colab notebook, and have meetings as needed, likely around once a week, on Zoom or in person. We have also created a github repository to coordinate work on additional files such as the <code>csv_generator</code> program and to store the game stat logs for prior seasons.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7814,19 +7827,58 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
-
+<div class="highlight hl-python"><pre><span></span><span class="err">!</span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">dgvoelkel</span><span class="o">/</span><span class="n">CMPS3160project</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">nba_api</span>
+<span class="o">%</span><span class="n">cd</span> <span class="n">CMPS3160project</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">nba_api.stats.static</span><span class="w"> </span><span class="kn">import</span> <span class="n">players</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">nba_api.stats.endpoints</span><span class="w"> </span><span class="kn">import</span> <span class="n">leaguegamelog</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csv_generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">build_active_player_gamelog_csv</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=e9b9613f">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Cloning into 'CMPS3160project'...
+remote: Enumerating objects: 36, done.
+remote: Counting objects: 100% (36/36), done.
+remote: Compressing objects: 100% (35/35), done.
+remote: Total 36 (delta 2), reused 0 (delta 0), pack-reused 0 (from 0)
+Receiving objects: 100% (36/36), 5.00 MiB | 4.81 MiB/s, done.
+Resolving deltas: 100% (2/2), done.
+Collecting nba_api
+  Downloading nba_api-1.11.4-py3-none-any.whl.metadata (5.8 kB)
+Requirement already satisfied: numpy&gt;=1.26.0 in /usr/local/lib/python3.12/dist-packages (from nba_api) (2.0.2)
+Requirement already satisfied: pandas&gt;=2.2.0 in /usr/local/lib/python3.12/dist-packages (from nba_api) (2.2.2)
+Requirement already satisfied: requests&lt;3.0.0,&gt;=2.32.3 in /usr/local/lib/python3.12/dist-packages (from nba_api) (2.32.4)
+Requirement already satisfied: python-dateutil&gt;=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas&gt;=2.2.0-&gt;nba_api) (2.9.0.post0)
+Requirement already satisfied: pytz&gt;=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas&gt;=2.2.0-&gt;nba_api) (2025.2)
+Requirement already satisfied: tzdata&gt;=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas&gt;=2.2.0-&gt;nba_api) (2025.3)
+Requirement already satisfied: charset_normalizer&lt;4,&gt;=2 in /usr/local/lib/python3.12/dist-packages (from requests&lt;3.0.0,&gt;=2.32.3-&gt;nba_api) (3.4.4)
+Requirement already satisfied: idna&lt;4,&gt;=2.5 in /usr/local/lib/python3.12/dist-packages (from requests&lt;3.0.0,&gt;=2.32.3-&gt;nba_api) (3.11)
+Requirement already satisfied: urllib3&lt;3,&gt;=1.21.1 in /usr/local/lib/python3.12/dist-packages (from requests&lt;3.0.0,&gt;=2.32.3-&gt;nba_api) (2.5.0)
+Requirement already satisfied: certifi&gt;=2017.4.17 in /usr/local/lib/python3.12/dist-packages (from requests&lt;3.0.0,&gt;=2.32.3-&gt;nba_api) (2026.2.25)
+Requirement already satisfied: six&gt;=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil&gt;=2.8.2-&gt;pandas&gt;=2.2.0-&gt;nba_api) (1.17.0)
+Downloading nba_api-1.11.4-py3-none-any.whl (322 kB)
+   <span class="ansi-black-intense-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">322.6/322.6 kB</span> <span class="ansi-red-fg">6.4 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+Installing collected packages: nba_api
+Successfully installed nba_api-1.11.4
+/content/CMPS3160project
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7834,99 +7886,41 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">OUT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"nba_player_gamelogs_by_season"</span><span class="p">)</span>
-<span class="n">OUT_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-<span class="n">LEAGUE_ID</span> <span class="o">=</span> <span class="s2">"00"</span>
-<span class="n">SLEEP_BETWEEN_CALLS</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">)</span>  <span class="c1"># jitter to reduce rate-limit risk</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">season_strings</span><span class="p">(</span><span class="n">start_year</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">end_year</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Build NBA Stats season strings from start_year to end_year inclusive.</span>
-<span class="sd">    Example: 1996 -&gt; '1996-97'</span>
-<span class="sd">    """</span>
-    <span class="n">seasons</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start_year</span><span class="p">,</span> <span class="n">end_year</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">seasons</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="nb">str</span><span class="p">((</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">seasons</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">get_active_player_ids</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="n">active</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">get_active_players</span><span class="p">()</span>
-    <span class="k">return</span> <span class="p">{</span><span class="n">p</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">active</span><span class="p">}</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">fetch_league_player_gamelog</span><span class="p">(</span><span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">season_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""</span>
-<span class="sd">    Pull ALL player game logs for a season + season_type using LeagueGameLog</span>
-<span class="sd">    (player rows). Retries with backoff.</span>
-<span class="sd">    """</span>
-    <span class="n">max_tries</span> <span class="o">=</span> <span class="mi">6</span>
-    <span class="n">last_err</span> <span class="o">=</span> <span class="kc">None</span>
-
-    <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_tries</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">*</span><span class="n">SLEEP_BETWEEN_CALLS</span><span class="p">))</span>
-
-            <span class="n">lg</span> <span class="o">=</span> <span class="n">leaguegamelog</span><span class="o">.</span><span class="n">LeagueGameLog</span><span class="p">(</span>
-                <span class="n">league_id</span><span class="o">=</span><span class="n">LEAGUE_ID</span><span class="p">,</span>
-                <span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span>
-                <span class="n">season_type_all_star</span><span class="o">=</span><span class="n">season_type</span><span class="p">,</span>      <span class="c1"># "Regular Season" or "Playoffs"</span>
-                <span class="n">player_or_team_abbreviation</span><span class="o">=</span><span class="s2">"P"</span>        <span class="c1"># IMPORTANT: player rows</span>
-            <span class="p">)</span>
-            <span class="k">return</span> <span class="n">lg</span><span class="o">.</span><span class="n">get_data_frames</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">last_err</span> <span class="o">=</span> <span class="n">e</span>
-            <span class="n">wait</span> <span class="o">=</span> <span class="nb">min</span><span class="p">((</span><span class="mi">2</span> <span class="o">**</span> <span class="n">attempt</span><span class="p">)</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="mi">30</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[WARN] </span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">season_type</span><span class="si">}</span><span class="s2">: attempt </span><span class="si">{</span><span class="n">attempt</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">max_tries</span><span class="si">}</span><span class="s2"> failed (</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">). "</span>
-                  <span class="sa">f</span><span class="s2">"Sleeping </span><span class="si">{</span><span class="n">wait</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">s..."</span><span class="p">)</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">wait</span><span class="p">)</span>
-
-    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed LeagueGameLog for </span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">season_type</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">last_err</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-
-<span class="k">def</span><span class="w"> </span><span class="nf">build_and_save_season</span><span class="p">(</span><span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">active_ids</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="n">reg</span> <span class="o">=</span> <span class="n">fetch_league_player_gamelog</span><span class="p">(</span><span class="n">season</span><span class="p">,</span> <span class="s2">"Regular Season"</span><span class="p">)</span>
-    <span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span><span class="p">[</span><span class="n">reg</span><span class="p">[</span><span class="s2">"PLAYER_ID"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">active_ids</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">reg</span><span class="p">[</span><span class="s2">"SEASON"</span><span class="p">]</span> <span class="o">=</span> <span class="n">season</span>
-    <span class="n">reg</span><span class="p">[</span><span class="s2">"SEASON_TYPE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Regular Season"</span>
-
-    <span class="n">po</span> <span class="o">=</span> <span class="n">fetch_league_player_gamelog</span><span class="p">(</span><span class="n">season</span><span class="p">,</span> <span class="s2">"Playoffs"</span><span class="p">)</span>
-    <span class="n">po</span> <span class="o">=</span> <span class="n">po</span><span class="p">[</span><span class="n">po</span><span class="p">[</span><span class="s2">"PLAYER_ID"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">active_ids</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">po</span><span class="p">[</span><span class="s2">"SEASON"</span><span class="p">]</span> <span class="o">=</span> <span class="n">season</span>
-    <span class="n">po</span><span class="p">[</span><span class="s2">"SEASON_TYPE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Playoffs"</span>
-
-    <span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">reg</span><span class="p">,</span> <span class="n">po</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="n">out_path</span> <span class="o">=</span> <span class="n">OUT_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"game_stats_</span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2">.csv"</span>
-    <span class="n">combined</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[OK] Saved </span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">out_path</span><span class="si">}</span><span class="s2"> | rows=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">combined</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> "</span>
-          <span class="sa">f</span><span class="s2">"(reg=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">reg</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">, po=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">po</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-    <span class="c1"># Past seasons to pull. Adjust start_year if you want fewer historical files.</span>
-    <span class="c1"># This will create CSVs for 1996-97 ... 2024-25, excluding 2025-26.</span>
-    <span class="n">seasons</span> <span class="o">=</span> <span class="n">season_strings</span><span class="p">(</span><span class="mi">2003</span><span class="p">,</span> <span class="mi">2024</span><span class="p">)</span>  <span class="c1"># 2003-04 through 2024-25</span>
-    <span class="n">seasons</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">seasons</span> <span class="k">if</span> <span class="n">s</span> <span class="o">!=</span> <span class="s2">"2025-26"</span><span class="p">]</span>  <span class="c1"># explicit exclusion</span>
-
-    <span class="n">active_ids</span> <span class="o">=</span> <span class="n">get_active_player_ids</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Active players found: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">active_ids</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">seasons</span><span class="p">:</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">build_and_save_season</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">active_ids</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[ERROR] Season </span><span class="si">{</span><span class="n">s</span><span class="si">}</span><span class="s2"> failed: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight hl-python"><pre><span></span><span class="n">build_active_player_gamelog_csv</span><span class="p">(</span><span class="s2">"2025-26"</span><span class="p">)</span> <span class="c1"># update csv for current season with latest data.</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=5076d7f4">
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Active players found: 530
+[OK] Saved 2025-26: nba_player_gamelogs_by_season/game_stats_2025-26.csv | rows=20,527 (reg=20,527, po=0)
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
+<pre>/content/CMPS3160project/csv_generator.py:72: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  combined = pd.concat([reg, po], ignore_index=True)
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>PosixPath('nba_player_gamelogs_by_season/game_stats_2025-26.csv')</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7934,66 +7928,776 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">OUT_DIR</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">"nba_player_gamelogs_by_season"</span><span class="p">)</span>
-<span class="n">OUT_DIR</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Create a df for all per-season NBA game stat CSV files and combine them into a single DataFrame.</span>
 
-<span class="n">SEASON</span> <span class="o">=</span> <span class="s2">"2025-26"</span>
-<span class="n">LEAGUE_ID</span> <span class="o">=</span> <span class="s2">"00"</span>
-<span class="n">SLEEP_BETWEEN_CALLS</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">)</span>
+<span class="nb">dir</span> <span class="o">=</span> <span class="s2">"/content/CMPS3160project/nba_player_gamelogs_by_season"</span>
+<span class="n">frames</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># list to append dfs to</span>
 
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">dir</span><span class="p">,</span> <span class="s2">"game_stats_*.csv"</span><span class="p">)):</span> <span class="c1"># create a df for each year's stats and store in list</span>
+  <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+  <span class="n">frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">get_active_player_ids</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">set</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-    <span class="n">active</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">get_active_players</span><span class="p">()</span>
-    <span class="k">return</span> <span class="p">{</span><span class="n">p</span><span class="p">[</span><span class="s2">"id"</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">active</span><span class="p">}</span>
+<span class="n">all_years_game_stats</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">frames</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># combine all the years into one dataframe</span>
+<span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"GAME_DATE"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"GAME_DATE"</span><span class="p">])</span> <span class="c1"># convert GAME_DATE into datetime type (used for sorting later)</span>
+<span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"SEASON_START"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"SEASON"</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"-"</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span> <span class="c1"># extract just the start year for each season</span>
 
+<span class="n">all_years_game_stats</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_years_game_stats</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s2">"GAME_DATE"</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> <span class="c1"># sort game date, earliest first</span>
 
-<span class="k">def</span><span class="w"> </span><span class="nf">fetch_league_player_gamelog</span><span class="p">(</span><span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">season_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
-    <span class="n">max_tries</span> <span class="o">=</span> <span class="mi">6</span>
-    <span class="n">last_err</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">all_years_game_stats</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"FANTASY_PTS"</span><span class="p">,</span><span class="s2">"VIDEO_AVAILABLE"</span><span class="p">,</span><span class="s2">"SEASON_TYPE"</span><span class="p">,</span><span class="s2">"TEAM_ID"</span><span class="p">,</span><span class="s2">"SEASON_ID"</span><span class="p">,</span><span class="s2">"TEAM_NAME"</span><span class="p">],</span><span class="n">inplace</span><span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="c1"># get rid of superfluous columns</span>
+<span class="n">all_years_game_stats</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div class="colab-df-container" id="df-21396f3b-1bc3-4c55-acc3-4b2c4acc4655">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-    <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_tries</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="o">*</span><span class="n">SLEEP_BETWEEN_CALLS</span><span class="p">))</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-            <span class="n">lg</span> <span class="o">=</span> <span class="n">leaguegamelog</span><span class="o">.</span><span class="n">LeagueGameLog</span><span class="p">(</span>
-                <span class="n">league_id</span><span class="o">=</span><span class="n">LEAGUE_ID</span><span class="p">,</span>
-                <span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span>
-                <span class="n">season_type_all_star</span><span class="o">=</span><span class="n">season_type</span><span class="p">,</span>      <span class="c1"># "Regular Season" or "Playoffs"</span>
-                <span class="n">player_or_team_abbreviation</span><span class="o">=</span><span class="s2">"P"</span>        <span class="c1"># player rows</span>
-            <span class="p">)</span>
-            <span class="k">return</span> <span class="n">lg</span><span class="o">.</span><span class="n">get_data_frames</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>PLAYER_ID</th>
+<th>PLAYER_NAME</th>
+<th>TEAM_ABBREVIATION</th>
+<th>GAME_ID</th>
+<th>GAME_DATE</th>
+<th>MATCHUP</th>
+<th>WL</th>
+<th>MIN</th>
+<th>FGM</th>
+<th>FGA</th>
+<th>...</th>
+<th>REB</th>
+<th>AST</th>
+<th>STL</th>
+<th>BLK</th>
+<th>TOV</th>
+<th>PF</th>
+<th>PTS</th>
+<th>PLUS_MINUS</th>
+<th>SEASON</th>
+<th>SEASON_START</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>2544</td>
+<td>LeBron James</td>
+<td>CLE</td>
+<td>20300014</td>
+<td>2003-10-29</td>
+<td>CLE @ SAC</td>
+<td>L</td>
+<td>42</td>
+<td>12</td>
+<td>20</td>
+<td>...</td>
+<td>6</td>
+<td>9</td>
+<td>4</td>
+<td>0</td>
+<td>2</td>
+<td>3</td>
+<td>25</td>
+<td>-9</td>
+<td>2003-04</td>
+<td>2003</td>
+</tr>
+<tr>
+<th>1</th>
+<td>2544</td>
+<td>LeBron James</td>
+<td>CLE</td>
+<td>20300018</td>
+<td>2003-10-30</td>
+<td>CLE @ PHX</td>
+<td>L</td>
+<td>41</td>
+<td>8</td>
+<td>17</td>
+<td>...</td>
+<td>12</td>
+<td>8</td>
+<td>1</td>
+<td>0</td>
+<td>7</td>
+<td>1</td>
+<td>21</td>
+<td>-3</td>
+<td>2003-04</td>
+<td>2003</td>
+</tr>
+<tr>
+<th>2</th>
+<td>2544</td>
+<td>LeBron James</td>
+<td>CLE</td>
+<td>20300038</td>
+<td>2003-11-01</td>
+<td>CLE @ POR</td>
+<td>L</td>
+<td>39</td>
+<td>3</td>
+<td>12</td>
+<td>...</td>
+<td>4</td>
+<td>6</td>
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td>3</td>
+<td>8</td>
+<td>-21</td>
+<td>2003-04</td>
+<td>2003</td>
+</tr>
+<tr>
+<th>3</th>
+<td>2544</td>
+<td>LeBron James</td>
+<td>CLE</td>
+<td>20300057</td>
+<td>2003-11-05</td>
+<td>CLE vs. DEN</td>
+<td>L</td>
+<td>41</td>
+<td>3</td>
+<td>11</td>
+<td>...</td>
+<td>11</td>
+<td>7</td>
+<td>2</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>7</td>
+<td>-3</td>
+<td>2003-04</td>
+<td>2003</td>
+</tr>
+<tr>
+<th>4</th>
+<td>2544</td>
+<td>LeBron James</td>
+<td>CLE</td>
+<td>20300068</td>
+<td>2003-11-07</td>
+<td>CLE @ IND</td>
+<td>L</td>
+<td>44</td>
+<td>8</td>
+<td>18</td>
+<td>...</td>
+<td>5</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>7</td>
+<td>2</td>
+<td>23</td>
+<td>-7</td>
+<td>2003-04</td>
+<td>2003</td>
+</tr>
+<tr>
+<th>...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr>
+<th>174028</th>
+<td>1642450</td>
+<td>Daniss Jenkins</td>
+<td>DET</td>
+<td>22500923</td>
+<td>2026-03-08</td>
+<td>DET @ MIA</td>
+<td>L</td>
+<td>15</td>
+<td>1</td>
+<td>4</td>
+<td>...</td>
+<td>4</td>
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>4</td>
+<td>4</td>
+<td>2025-26</td>
+<td>2025</td>
+</tr>
+<tr>
+<th>174029</th>
+<td>1642276</td>
+<td>Kel'el Ware</td>
+<td>MIA</td>
+<td>22500923</td>
+<td>2026-03-08</td>
+<td>MIA vs. DET</td>
+<td>W</td>
+<td>26</td>
+<td>6</td>
+<td>9</td>
+<td>...</td>
+<td>6</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+<td>12</td>
+<td>11</td>
+<td>2025-26</td>
+<td>2025</td>
+</tr>
+<tr>
+<th>174030</th>
+<td>202699</td>
+<td>Tobias Harris</td>
+<td>DET</td>
+<td>22500923</td>
+<td>2026-03-08</td>
+<td>DET @ MIA</td>
+<td>L</td>
+<td>24</td>
+<td>3</td>
+<td>6</td>
+<td>...</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+<td>2</td>
+<td>9</td>
+<td>-12</td>
+<td>2025-26</td>
+<td>2025</td>
+</tr>
+<tr>
+<th>174031</th>
+<td>1631105</td>
+<td>Jalen Duren</td>
+<td>DET</td>
+<td>22500923</td>
+<td>2026-03-08</td>
+<td>DET @ MIA</td>
+<td>L</td>
+<td>26</td>
+<td>10</td>
+<td>12</td>
+<td>...</td>
+<td>5</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+<td>24</td>
+<td>-18</td>
+<td>2025-26</td>
+<td>2025</td>
+</tr>
+<tr>
+<th>174032</th>
+<td>1631342</td>
+<td>Daeqwon Plowden</td>
+<td>SAC</td>
+<td>22500930</td>
+<td>2026-03-08</td>
+<td>SAC vs. CHI</td>
+<td>W</td>
+<td>35</td>
+<td>6</td>
+<td>13</td>
+<td>...</td>
+<td>3</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>4</td>
+<td>16</td>
+<td>4</td>
+<td>2025-26</td>
+<td>2025</td>
+</tr>
+</tbody>
+</table>
+<p>174033 rows × 29 columns</p>
+</div>
+<div class="colab-df-buttons">
+<div class="colab-df-container">
+<button class="colab-df-convert" onclick="convertToInteractive('df-21396f3b-1bc3-4c55-acc3-4b2c4acc4655')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
+<path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
+</svg>
+</button>
+<style>
+    .colab-df-container {
+      display:flex;
+      gap: 12px;
+    }
 
-        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">last_err</span> <span class="o">=</span> <span class="n">e</span>
-            <span class="n">wait</span> <span class="o">=</span> <span class="nb">min</span><span class="p">((</span><span class="mi">2</span> <span class="o">**</span> <span class="n">attempt</span><span class="p">)</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(),</span> <span class="mi">30</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[WARN] </span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">season_type</span><span class="si">}</span><span class="s2">: attempt </span><span class="si">{</span><span class="n">attempt</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">max_tries</span><span class="si">}</span><span class="s2"> failed (</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">). "</span>
-                  <span class="sa">f</span><span class="s2">"Sleeping </span><span class="si">{</span><span class="n">wait</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">s..."</span><span class="p">)</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">wait</span><span class="p">)</span>
+    .colab-df-convert {
+      background-color: #E8F0FE;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      fill: #1967D2;
+      height: 32px;
+      padding: 0 0 0 0;
+      width: 32px;
+    }
 
-    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed LeagueGameLog for </span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">season_type</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">last_err</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    .colab-df-convert:hover {
+      background-color: #E2EBFA;
+      box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+      fill: #174EA6;
+    }
 
+    .colab-df-buttons div {
+      margin-bottom: 4px;
+    }
 
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">"__main__"</span><span class="p">:</span>
-    <span class="n">active_ids</span> <span class="o">=</span> <span class="n">get_active_player_ids</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Active players found: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">active_ids</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    [theme=dark] .colab-df-convert {
+      background-color: #3B4455;
+      fill: #D2E3FC;
+    }
 
-    <span class="n">reg</span> <span class="o">=</span> <span class="n">fetch_league_player_gamelog</span><span class="p">(</span><span class="n">SEASON</span><span class="p">,</span> <span class="s2">"Regular Season"</span><span class="p">)</span>
-    <span class="n">reg</span> <span class="o">=</span> <span class="n">reg</span><span class="p">[</span><span class="n">reg</span><span class="p">[</span><span class="s2">"PLAYER_ID"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">active_ids</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">reg</span><span class="p">[</span><span class="s2">"SEASON"</span><span class="p">]</span> <span class="o">=</span> <span class="n">SEASON</span>
-    <span class="n">reg</span><span class="p">[</span><span class="s2">"SEASON_TYPE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Regular Season"</span>
+    [theme=dark] .colab-df-convert:hover {
+      background-color: #434B5C;
+      box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+      filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+      fill: #FFFFFF;
+    }
+  </style>
+<script>
+      const buttonEl =
+        document.querySelector('#df-21396f3b-1bc3-4c55-acc3-4b2c4acc4655 button.colab-df-convert');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
 
-    <span class="n">po</span> <span class="o">=</span> <span class="n">fetch_league_player_gamelog</span><span class="p">(</span><span class="n">SEASON</span><span class="p">,</span> <span class="s2">"Playoffs"</span><span class="p">)</span>
-    <span class="n">po</span> <span class="o">=</span> <span class="n">po</span><span class="p">[</span><span class="n">po</span><span class="p">[</span><span class="s2">"PLAYER_ID"</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">active_ids</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-    <span class="n">po</span><span class="p">[</span><span class="s2">"SEASON"</span><span class="p">]</span> <span class="o">=</span> <span class="n">SEASON</span>
-    <span class="n">po</span><span class="p">[</span><span class="s2">"SEASON_TYPE"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Playoffs"</span>
+      async function convertToInteractive(key) {
+        const element = document.querySelector('#df-21396f3b-1bc3-4c55-acc3-4b2c4acc4655');
+        const dataTable =
+          await google.colab.kernel.invokeFunction('convertToInteractive',
+                                                    [key], {});
+        if (!dataTable) return;
 
-    <span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">reg</span><span class="p">,</span> <span class="n">po</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        const docLinkHtml = 'Like what you see? Visit the ' +
+          '<a target="_blank" href=https://colab.research.google.com/notebooks/data_table.ipynb>data table notebook</a>'
+          + ' to learn more about interactive tables.';
+        element.innerHTML = '';
+        dataTable['output_type'] = 'display_data';
+        await google.colab.output.renderOutput(dataTable, element);
+        const docLink = document.createElement('div');
+        docLink.innerHTML = docLinkHtml;
+        element.appendChild(docLink);
+      }
+    </script>
+</div>
+<div id="id_af8cd0c3-e0a8-49ff-9630-ad7dc93abf0d">
+<style>
+      .colab-df-generate {
+        background-color: #E8F0FE;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: none;
+        fill: #1967D2;
+        height: 32px;
+        padding: 0 0 0 0;
+        width: 32px;
+      }
 
-    <span class="n">out_path</span> <span class="o">=</span> <span class="n">OUT_DIR</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"game_stats_</span><span class="si">{</span><span class="n">SEASON</span><span class="si">}</span><span class="s2">.csv"</span>
-    <span class="n">combined</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">out_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+      .colab-df-generate:hover {
+        background-color: #E2EBFA;
+        box-shadow: 0px 1px 2px rgba(60, 64, 67, 0.3), 0px 1px 3px 1px rgba(60, 64, 67, 0.15);
+        fill: #174EA6;
+      }
 
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[OK] Saved </span><span class="si">{</span><span class="n">SEASON</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">out_path</span><span class="si">}</span><span class="s2"> | rows=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">combined</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> "</span>
-          <span class="sa">f</span><span class="s2">"(reg=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">reg</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">, po=</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">po</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+      [theme=dark] .colab-df-generate {
+        background-color: #3B4455;
+        fill: #D2E3FC;
+      }
+
+      [theme=dark] .colab-df-generate:hover {
+        background-color: #434B5C;
+        box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+        filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+        fill: #FFFFFF;
+      }
+    </style>
+<button class="colab-df-generate" onclick="generateWithVariable('all_years_game_stats')" style="display:none;" title="Generate code using this dataframe.">
+<svg height="24px" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+<path d="M7,19H8.4L18.45,9,17,7.55,7,17.6ZM5,21V16.75L18.45,3.32a2,2,0,0,1,2.83,0l1.4,1.43a1.91,1.91,0,0,1,.58,1.4,1.91,1.91,0,0,1-.58,1.4L9.25,21ZM18.45,9,17,7.55Zm-12,3A5.31,5.31,0,0,0,4.9,8.1,5.31,5.31,0,0,0,1,6.5,5.31,5.31,0,0,0,4.9,4.9,5.31,5.31,0,0,0,6.5,1,5.31,5.31,0,0,0,8.1,4.9,5.31,5.31,0,0,0,12,6.5,5.46,5.46,0,0,0,6.5,12Z"></path>
+</svg>
+</button>
+<script>
+      (() => {
+      const buttonEl =
+        document.querySelector('#id_af8cd0c3-e0a8-49ff-9630-ad7dc93abf0d button.colab-df-generate');
+      buttonEl.style.display =
+        google.colab.kernel.accessAllowed ? 'block' : 'none';
+
+      buttonEl.onclick = () => {
+        google.colab.notebook.generateWithVariable('all_years_game_stats');
+      }
+      })();
+    </script>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Create new statistics in DataFrame</span>
+
+<span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"TS_PCT"</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"PTS"</span><span class="p">]</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"FGA"</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.44</span> <span class="o">*</span> <span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"FTA"</span><span class="p">]))</span>
+<span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"EFG_PCT"</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"FGM"</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"FG3M"</span><span class="p">])</span> <span class="o">/</span> <span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"FGA"</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"FGA"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"PPS"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"PTS"</span><span class="p">]</span> <span class="o">/</span> <span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"FGA"</span><span class="p">])</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"FGA"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="n">all_years_game_stats</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>PLAYER_ID</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>PLAYER_NAME</th>
+<td>object</td>
+</tr>
+<tr>
+<th>TEAM_ABBREVIATION</th>
+<td>object</td>
+</tr>
+<tr>
+<th>GAME_ID</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>GAME_DATE</th>
+<td>datetime64[ns]</td>
+</tr>
+<tr>
+<th>MATCHUP</th>
+<td>object</td>
+</tr>
+<tr>
+<th>WL</th>
+<td>object</td>
+</tr>
+<tr>
+<th>MIN</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>FGM</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>FGA</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>FG_PCT</th>
+<td>float64</td>
+</tr>
+<tr>
+<th>FG3M</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>FG3A</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>FG3_PCT</th>
+<td>float64</td>
+</tr>
+<tr>
+<th>FTM</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>FTA</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>FT_PCT</th>
+<td>float64</td>
+</tr>
+<tr>
+<th>OREB</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>DREB</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>REB</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>AST</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>STL</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>BLK</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>TOV</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>PF</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>PTS</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>PLUS_MINUS</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>SEASON</th>
+<td>object</td>
+</tr>
+<tr>
+<th>SEASON_START</th>
+<td>int64</td>
+</tr>
+<tr>
+<th>TS_PCT</th>
+<td>float64</td>
+</tr>
+<tr>
+<th>EFG_PCT</th>
+<td>float64</td>
+</tr>
+<tr>
+<th>PPS</th>
+<td>float64</td>
+</tr>
+</tbody>
+</table>
+</div><br/><label><b>dtype:</b> object</label>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># Some interesting stats below.</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"TS_PCT"</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span> <span class="c1">#  Distribution of true shooting percentage appears to be approximately symmetric. True shooting percentage accounts for free throw attempts in the calculation, making it a holistic efficiency metric for our project.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"EFG_PCT"</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span> <span class="c1"># Distribution of effective field goal percentage is also approximately symmetric. Effective field goal percentage is another efficiency metric that accounts for 3 point shooting, which is very relevant in the NBA today.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">all_years_game_stats</span><span class="p">[</span><span class="s2">"PPS"</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span> <span class="c1"># Distribution points per shot attempt is approximately symmetric as well. Points for shot attempt is another great way to measure efficiency.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>count    169177.000000
+mean          0.563945
+std           0.235616
+min           0.000000
+25%           0.437500
+50%           0.569177
+75%           0.697970
+max           1.500000
+Name: TS_PCT, dtype: float64
+count    174033.000000
+mean          0.515004
+std           0.262572
+min           0.000000
+25%           0.375000
+50%           0.500000
+75%           0.666667
+max           1.500000
+Name: EFG_PCT, dtype: float64
+count    174033.000000
+mean          1.245990
+std           0.631807
+min           0.000000
+25%           0.916667
+50%           1.250000
+75%           1.583333
+max           9.000000
+Name: PPS, dtype: float64
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>These three statistics were crucial additions to this dataframe because they help gear us up for the next step in the project, which is calculating the correlation matrix for all of the quantitative stats. Stats with very positive or negative correlations will be added to the parameter matrix that the normal distribution model will be trained around.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="n">lebron_season_averages</span> <span class="o">=</span> <span class="n">all_years_game_stats</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s2">"PLAYER_NAME"</span><span class="p">,</span><span class="s2">"SEASON_START"</span><span class="p">])[</span><span class="s2">"PTS"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()[</span><span class="s2">"LeBron James"</span><span class="p">]</span> <span class="c1"># calculate average pts per game</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">lebron_season_averages</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Seasons"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Points"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">)</span> <span class="c1"># force yaxis to have a better range to improve visability.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Lebron James Average Points Per Game (Seasonal)"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
+<pre>Text(0.5, 1.0, 'Lebron James Average Points Per Game (Seasonal)')</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedImage jp-OutputArea-output" tabindex="0">
+<img alt="No description has been provided for this image" class="" src="data:image/png;base64,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O3YsPD09sWnTJgwaNAjx8fH46KOPND5r7dq1SEpKwsiRIyGTyTB//nz06NEDt2/ffu2/kM+cOYOTJ0+ib9++cHNzw927d7FkyRK0bNkSV65cyddaNG7cODg7O2P27Nk4deoUli1bBmtra5w8eRJly5bFV199hV27duHbb79FtWrVMGDAAPV7R44ciZUrV2Lw4MEYP3487ty5g19++QUhISE4ceIEjI2NER0djXbt2sHBwQGffPIJrK2tcffuXWzdurVQ+3P69GncvHkTK1asgImJCXr06IE1a9aoA2PHjh1haWmJjRs3okWLFhrv3bBhA6pWrYpq1aoBAC5fvowmTZqgTJky+OSTT2BhYYGNGzeiW7du2LJlC7p3767x/tGjR8PBwQEzZsxASkrKax3fhw8folWrVpDJZAgICICFhQV+//13yOXyfPu4evVqDBw4EP7+/vjmm2+QmpqKJUuWoGnTpggJCSlS61PeF5KdnR0AYNasWZg9ezb8/Pzw4YcfIiwsDEuWLMGZM2fU5+plXvVvdOTIkYiIiMD+/fvzdbXs378f/fr1Q5s2bfDNN98AAK5evYoTJ07k+1kojCdPnuDJkyfw8fEBoJ3zWpB//vkHADRag17l9u3b2L59O9599114enoiKioKS5cuRYsWLXDlyhW4urpqrD9v3jyYmZnhk08+wc2bN/Hzzz/D2NgYBgYGePLkCWbNmoVTp05h5cqV8PT0xIwZM9TvnTt3LqZPn47evXtj2LBhiImJwc8//4zmzZsjJCQE1tbWL6zz5MmTAIA6depoLPfw8AAA/Pnnn/j88881wujzCnvcC3tMfvvtN4wfPx69evXCRx99hPT0dFy4cAGnT59Wtw5dvnwZzZo1g0KhwNSpU2FsbIylS5eiZcuWCAwMRMOGDTVqHDduHGxsbDBz5kzcvXsXCxcuxNixY7Fhwwb1OitXroSlpSUmTZoES0tLHDp0CDNmzEBiYiK+/fbbF+5/nrp162LBggW4fPmy+neNZAnSmRUrVggA4syZMy9cZ+jQocLFxUU8fvxYY3nfvn2FUqkUqampQgghDh8+LACIMmXKiMTERPV6GzduFADEjz/+qF7WokULAUD8+uuvGttcuHChACD++usv9bLMzEzh6+srLC0t1du9c+eOACDs7OxEXFycet2///5bABD//PPPS/c7r9ZNmzap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V6Np06YMMaRzSqUSU6dOxbffflukK+7edrGxsfj9998xZ86cUhFiAIAtMlRi9u3bh8DAQHz//fdo3rw59u3bp+uSqAC1atVCy5YtUblyZURFReGPP/5AREQEDh48qHGFBBGRPmCQoRLTqlUrnDt3Dv7+/vjll19eOCkd6dann36KzZs348GDB5DJZKhTpw5mzpxZrPO9EBEVld4Ema+//hoBAQH46KOPsHDhQgC581x8/PHHWL9+PTIyMuDv74/FixfDyclJt8USERGRXtCLMTJnzpzB0qVL801wNHHiRPzzzz/YtGkTAgMDERERgR49euioSiIiItI3Og8yycnJ6N+/P3777TeNm7slJCTgjz/+wA8//IDWrVujbt26WLFiBU6ePPnCSZ6IiIjo7aLzCfHGjBmDjh07ws/PD3PmzFEvDw4ORlZWlka/fKVKlVC2bFkEBQWhUaNGBW4vIyNDY9ZNlUqFuLg42NnZlZoR2kRERKWdEAJJSUlwdXXNdzPjZ+k0yKxfvx7nzp0r8PbnkZGRMDExgbW1tcZyJycnREZGvnCb8+bNK/KNuoiIiEi/hIeHw83N7YWv6yzIhIeH46OPPsL+/fvz3Yn1TQQEBGDSpEnq5wkJCShbtizCw8Nf+34WREREpBuJiYlwd3d/5e1xdBZkgoODER0djTp16qiX5eTk4OjRo/jll1+wd+9eZGZmIj4+XqNVJioqCs7Ozi/crlwuh1wuz7dcoVAwyBAREUnMq4aF6CzItGnTBhcvXtRYNnjwYFSqVAnTpk2Du7s7jI2NcfDgQfTs2RMAEBYWhvv376vvgEpERERvN50FGSsrK1SrVk1jmYWFBezs7NTLhw4dikmTJsHW1hYKhQLjxo2Dr6/vCwf6EhER0dtF51ctvcyCBQtgYGCAnj17akyIR0RERATo0cy+xSUxMRFKpRIJCQkcI0NERCQRhf3+1vmEeERERERFxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBD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0yCTkpKCmjVrYtGiRS9cp3379nj06JH6sW7duhKskIiIiPSZkS4/vEOHDujQocNL15HL5XB2di6hioiIiEhK9H6MzJEjR+Do6IiKFSviww8/RGxs7EvXz8jIQGJiosaDiIiISie9DjLt27fHn3/+iYMHD+Kbb75BYGAgOnTogJycnBe+Z968eVAqleqHu7t7CVZMREREJUkmhBC6LgIAZDIZtm3bhm7dur1wndu3b8Pb2xsHDhxAmzZtClwnIyMDGRkZ6ueJiYlwd3dHQkICFAqFtssmIiKiYpCYmAilUvnK72+9bpF5npeXF+zt7XHz5s0XriOXy6FQKDQeREREVDpJKsg8ePAAsbGxcHFx0XUpREREpAd0etVScnKyRuvKnTt3EBoaCltbW9ja2mL27Nno2bMnnJ2dcevWLUydOhU+Pj7w9/fXYdVERESkL3QaZM6ePYtWrVqpn0+aNAkAMHDgQCxZsgQXLlzAqlWrEB8fD1dXV7Rr1w5ffvkl5HK5rkomIiIiPaI3g32LS2EHCxEREZH+KJWDfYmIiIiexSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREksUgQ0RERJLFIENERESSxSBDREREkqXTIHP06FF07twZrq6ukMlk2L59u8brQgjMmDEDLi4uMDMzg5+fH27cuKGbYomIiEjv6DTIpKSkoGbNmli0aFGBr8+fPx8//fQTfv31V5w+fRoWFhbw9/dHenp6CVdKRERE+shIlx/eoUMHdOjQocDXhBBYuHAhPv/8c3Tt2hUA8Oeff8LJyQnbt29H3759S7JUIiIi0kN6O0bmzp07iIyMhJ+fn3qZUqlEw4YNERQU9ML3ZWRkIDExUeNBREREpZPeBpnIyEgAgJOTk8ZyJycn9WsFmTdvHpRKpfrh7u5erHUSERGR7uhtkCmqgIAAJCQkqB/h4eG6LomIiIiKid4GGWdnZwBAVFSUxvKoqCj1awWRy+VQKBQaDyIiIiqd9DbIeHp6wtnZGQcPHlQvS0xMxOnTp+Hr66vDyoiIiEhf6PSqpeTkZNy8eVP9/M6dOwgNDYWtrS3Kli2LCRMmYM6cOShfvjw8PT0xffp0uLq6olu3brormoiIiPSGToPM2bNn0apVK/XzSZMmAQAGDhyIlStXYurUqUhJScGIESMQHx+Ppk2bYs+ePTA1NdVVyURERKRHZEIIoesiilNiYiKUSiUSEhI4XoaIiEgiCvv9rbdjZIiIiIhehUGGiIiIJItBhoiIiCSLQYaIiIgki0GGiIiIJItBhoiIiCSLQYaIiIgki0GGiIiIJItBhoiIiCSLQYaIiIgki0GGiIiIJItBhoiIiCSLQYaIiIgki0GGiIiIJItBhoiIiCSLQYaIiIgki0GGiIiIJItBhoiIiCSLQYaIiIgki0GGiIiIJItBhoiIiCSLQYaIiIgki0GGiIiIJItBhoiIiCSLQYaIiIgki0GGiIiIJItBhoiIiCSLQYaIiIgki0GGiIiIJItBhoiIiCSLQYaIiIgki0GGiIiIJItBhoiIiCSLQYaIiIgki0GGiIiIJEuvg8ysWbMgk8k0HpUqVdJ1WURERKQnjHRdwKtUrVoVBw4cUD83MtL7komIiKiE6H0qMDIygrOzs67LICIiIj2k111LAHDjxg24urrCy8sL/fv3x/3793VdEhEREekJvW6RadiwIVauXImKFSvi0aNHmD17Npo1a4ZLly7BysqqwPdkZGQgIyND/TwxMbGkyiUiIqISJhNCCF0XUVjx8fHw8PDADz/8gKFDhxa4zqxZszB79ux8yxMSEqBQKIq7RCIiItKCxMREKJXKV35/633X0rOsra1RoUIF3Lx584XrBAQEICEhQf0IDw8vwQqJiIioJEkqyCQnJ+PWrVtwcXF54TpyuRwKhULjQURERKWTXgeZyZMnIzAwEHfv3sXJkyfRvXt3GBoaol+/froujYiIiPSAXg/2ffDgAfr164fY2Fg4ODigadOmOHXqFBwcHHRdGhEREekBvQ4y69ev13UJREREpMf0umuJiIiI6GUYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyJBFkFi1ahHLlysHU1BQNGzbEf//9p+uSiIiISA/ofZDZsGEDJk2ahJkzZ+LcuXOoWbMm/P39ER0drevSiIiISMf0Psj88MMPGD58OAYPHowqVarg119/hbm5OZYvX67r0oiIiEjH9DrIZGZmIjg4GH5+fuplBgYG8PPzQ1BQkA4rIyIiIn1gpOsCXubx48fIycmBk5OTxnInJydcu3atwPdkZGQgIyND/TwhIQEAkJiYWHyFEhERkVblfW8LIV66nl4HmaKYN28eZs+enW+5u7u7DqohIiKiN5GUlASlUvnC1/U6yNjb28PQ0BBRUVEay6OiouDs7FzgewICAjBp0iT1c5VKhbi4ONjZ2UEmkxVrvfomMTER7u7uCA8Ph0Kh0HU59AyeG/3E86K/eG70U3GeFyEEkpKS4Orq+tL19DrImJiYoG7dujh48CC6desGIDeYHDx4EGPHji3wPXK5HHK5XGOZtbV1MVeq3xQKBX/w9RTPjX7iedFfPDf6qbjOy8taYvLodZABgEmTJmHgwIGoV68eGjRogIULFyIlJQWDBw/WdWlERESkY3ofZPr06YOYmBjMmDEDkZGRqFWrFvbs2ZNvADARERG9ffQ+yADA2LFjX9iVRC8ml8sxc+bMfF1tpHs8N/qJ50V/8dzoJ304LzLxquuaiIiIiPSUXk+IR0RERPQyDDJEREQkWQwyREREJFkMMkRERCRZDDJ6bt68eahfvz6srKzg6OiIbt26ISwsTGOd9PR0jBkzBnZ2drC0tETPnj3zzYZ8//59dOzYEebm5nB0dMSUKVOQnZ2tfv3IkSOQyWT5HpGRkSWyn1KjrfMyfvx41K1bF3K5HLVq1Srwsy5cuIBmzZrB1NQU7u7umD9/fnHtVqlQUufm7t27Bf7MnDp1qjh3T7K0cV7Onz+Pfv36wd3dHWZmZqhcuTJ+/PHHfJ915MgR1KlTB3K5HD4+Pli5cmVx756kldS5Ka7vGQYZPRcYGIgxY8bg1KlT2L9/P7KystCuXTukpKSo15k4cSL++ecfbNq0CYGBgYiIiECPHj3Ur+fk5KBjx47IzMzEyZMnsWrVKqxcuRIzZszI93lhYWF49OiR+uHo6Fgi+yk12jgveYYMGYI+ffoU+DmJiYlo164dPDw8EBwcjG+//RazZs3CsmXLim3fpK6kzk2eAwcOaPzM1K1bV+v7VBpo47wEBwfD0dERf/31Fy5fvozPPvsMAQEB+OWXX9Tr3LlzBx07dkSrVq0QGhqKCRMmYNiwYdi7d2+J7q+UlNS5yaP17xlBkhIdHS0AiMDAQCGEEPHx8cLY2Fhs2rRJvc7Vq1cFABEUFCSEEGLXrl3CwMBAREZGqtdZsmSJUCgUIiMjQwghxOHDhwUA8eTJk5LbmVKkKOflWTNnzhQ1a9bMt3zx4sXCxsZGfZ6EEGLatGmiYsWK2t+JUqq4zs2dO3cEABESElJcpZdqb3pe8owePVq0atVK/Xzq1KmiatWqGuv06dNH+Pv7a3kPSq/iOjfF9T3DFhmJSUhIAADY2toCyE3BWVlZ8PPzU69TqVIllC1bFkFBQQCAoKAgVK9eXWM2ZH9/fyQmJuLy5csa269VqxZcXFzQtm1bnDhxorh3p9QoynkpjKCgIDRv3hwmJibqZf7+/ggLC8OTJ0+0VH3pVlznJk+XLl3g6OiIpk2bYseOHdop+i2grfOSkJCg3gaQ+zPz7DaA3J+Zopzbt1VxnZs82v6eYZCREJVKhQkTJqBJkyaoVq0aACAyMhImJib5bozp5OSk7neMjIzMd0uHvOd567i4uODXX3/Fli1bsGXLFri7u6Nly5Y4d+5cMe+V9BX1vBRGYc4dvVhxnhtLS0t8//332LRpE3bu3ImmTZuiW7duDDOFoK3zcvLkSWzYsAEjRoxQL3vRz0xiYiLS0tK0uyOlUHGem+L6npHELQoo15gxY3Dp0iUcP35c69uuWLEiKlasqH7euHFj3Lp1CwsWLMDq1au1/nmlSXGeF3ozxXlu7O3tMWnSJPXz+vXrIyIiAt9++y26dOmi9c8rTbRxXi5duoSuXbti5syZaNeunRare7sV57kpru8ZtshIxNixY/Hvv//i8OHDcHNzUy93dnZGZmYm4uPjNdaPioqCs7Ozep3nr8jIe563TkEaNGiAmzdvamkPSqc3OS+FUdRzR8V/bgrSsGFD/sy8gjbOy5UrV9CmTRuMGDECn3/+ucZrL/qZUSgUMDMz0+7OlDLFfW4Koo3vGQYZPSeEwNixY7Ft2zYcOnQInp6eGq/XrVsXxsbGOHjwoHpZWFgY7t+/D19fXwCAr68vLl68iOjoaPU6+/fvh0KhQJUqVV742aGhoXBxcdHyHpUO2jgvheHr64ujR48iKytLvWz//v2oWLEibGxs3nxHSqGSOjcF4c/Mi2nrvFy+fBmtWrXCwIEDMXfu3Hyf4+vrq7ENIPdn5k3PbWlWUuemIFr5mdHq0GHSug8//FAolUpx5MgR8ejRI/UjNTVVvc6oUaNE2bJlxaFDh8TZs2eFr6+v8PX1Vb+enZ0tqlWrJtq1aydCQ0PFnj17hIODgwgICFCvs2DBArF9+3Zx48YNcfHiRfHRRx8JAwMDceDAgRLdX6nQxnkRQogbN26IkJAQMXLkSFGhQgUREhIiQkJC1FcpxcfHCycnJ/HBBx+IS5cuifXr1wtzc3OxdOnSEt1fKSmpc7Ny5Uqxdu1acfXqVXH16lUxd+5cYWBgIJYvX16i+ysV2jgvFy9eFA4ODuL999/X2EZ0dLR6ndu3bwtzc3MxZcoUcfXqVbFo0SJhaGgo9uzZU6L7KyUldW6K63uGQUbPASjwsWLFCvU6aWlpYvTo0cLGxkaYm5uL7t27i0ePHmls5+7du6JDhw7CzMxM2Nvbi48//lhkZWWpX//mm2+Et7e3MDU1Fba2tqJly5bi0KFDJbWbkqOt89KiRYsCt3Pnzh31OufPnxdNmzYVcrlclClTRnz99dcltJfSVFLnZuXKlaJy5crC3NxcKBQK0aBBA43LU0mTNs7LzJkzC9yGh4eHxmcdPnxY1KpVS5iYmAgvLy+Nz6D8SurcFNf3jOzpThARERFJDsfIEBERkWQxyBAREZFkMcgQERGRZDHIEBERkWQxyBAREZFkMcgQERGRZDHIEBERkWQxyBAREZFkMcgQkdbFxMTgww8/RNmyZSGXy+Hs7Ax/f3+cOHFC16URUSljpOsCiKj06dmzJzIzM7Fq1Sp4eXkhKioKBw8eRGxsrK5LI6JShi0yRKRV8fHxOHbsGL755hu0atUKHh4eaNCgAQICAtClSxf1OsOGDYODgwMUCgVat26N8+fPq7dx69YtdO3aFU5OTrC0tET9+vVx4MABjc9ZvHgxypcvD1NTUzg5OaFXr17q1zIyMjB+/Hg4OjrC1NQUTZs2xZkzZ9SvHzlyBDKZDAcPHkS9evVgbm6Oxo0bIywsTL3O+fPn0apVK1hZWUGhUKBu3bo4e/ZscR02IioiBhki0ipLS0tYWlpi+/btyMjIKHCdd999F9HR0di9ezeCg4NRp04dtGnTBnFxcQCA5ORkvPPOOzh48CBCQkLQvn17dO7cGffv3wcAnD17FuPHj8cXX3yBsLAw7NmzB82bN1dvf+rUqdiyZQtWrVqFc+fOwcfHB/7+/urt5/nss8/w/fff4+zZszAyMsKQIUPUr/Xv3x9ubm44c+YMgoOD8cknn8DY2Fjbh4uI3tQb33aSiOg5mzdvFjY2NsLU1FQ0btxYBAQEiPPnzwshhDh27JhQKBQiPT1d4z3e3t5i6dKlL9xm1apVxc8//yyEEGLLli1CoVCIxMTEfOslJycLY2NjsWbNGvWyzMxM4erqKubPny+EyL07MgBx4MAB9To7d+4UAERaWpoQQggrKyuxcuXKIh4BIiopbJEhIq3r2bMnIiIisGPHDrRv3x5HjhxBnTp1sHLlSpw/fx7Jycmws7NTt95YWlrizp07uHXrFoDcFpnJkyejcuXKsLa2hqWlJa5evapukWnbti08PDzg5eWFDz74AGvWrEFqaiqA3G6prKwsNGnSRF2PsbExGjRogKtXr2rUWaNGDfX/u7i4AACio6MBAJMmTcKwYcPg5+eHr7/+Wl0bEekXBhkiKhampqZo27Ytpk+fjpMnT2LQoEGYOXMmkpOT4eLigtDQUI1HWFgYpkyZAgCYPHkytm3bhq+++grHjh1DaGgoqlevjszMTACAlZUVzp07h3Xr1sHFxQUzZsxAzZo1ER8f/1o1PttVJJPJAAAqlQoAMGvWLFy+fBkdO3bEoUOHUKVKFWzbtk0LR4aItIlBhohKRJUqVZCSkoI6deogMjISRkZG8PHx0XjY29sDAE6cOIFBgwahe/fuqF69OpydnXH37l2N7RkZGcHPzw/z58/HhQsXcPfuXRw6dAje3t4wMTHRuNQ7KysLZ86cQZUqVV6r5goVKmDixInYt28fevTogRUrVrzxcSAi7eLl10SkVbGxsXj33XcxZMgQ1KhRA1ZWVjh79izmz5+Prl27ws/PD76+vujWrRvmz5+PChUqICIiAjt37kT37t1Rr149lC9fHlu3bkXnzp0hk8kwffp0dUsJAPz777+4ffs2mjdvDhsbG+zatQsqlQoVK1aEhYUFPvzwQ0yZMgW2trYoW7Ys5s+fj9TUVAwdOrRQ+5CWloYpU6agV69e8PT0xIMHD3DmzBn07NmzuA4bERURgwwRaZWlpSUaNmyIBQsWqMeruLu7Y/jw4fj0008hk8mwa9cufPbZZxg8eDBiYmLg7OyM5s2bw8nJCQDwww8/YMiQIWjcuDHs7e0xbdo0JCYmqj/D2toaW7duxaxZs5Ceno7y5ctj3bp1qFq1KgDg66+/hkqlwgcffICkpCTUq1cPe/fuhY2NTaH2wdDQELGxsRgwYACioqJgb2+PHj16YPbs2do/YET0RmRCCKHrIoiIiIiKgmNkiIiISLIYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyGGSIiIhIshhkiIiISLIYZIiIiEiyGGSIiIhIsv4Hqdrm7NS3UlcAAAAASUVORK5CYII=
+"/>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-python"><pre><span></span><span class="c1"># RUN WHEN UPDATING WEBSITE, *MEYER* MOVE TO PERSONAL COLABFOLDER</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">'/content/drive'</span><span class="p">)</span>
+<span class="err">!</span><span class="n">jupyter</span> <span class="n">nbconvert</span> <span class="o">--</span><span class="n">to</span> <span class="n">html</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="n">ColabNotebooks</span><span class="o">/</span><span class="n">CMPS3160_Project</span><span class="o">.</span><span class="n">ipynb</span>
 </pre></div>
 </div>
 </div>
