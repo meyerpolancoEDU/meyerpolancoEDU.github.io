@@ -7813,7 +7813,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Project-Plan">Project Plan<a class="anchor-link" href="#Project-Plan">¶</a></h1><p>We plan to create a normal distribution model to predict scoring in a given future game. To do this, we need to create an estimator function of the true mean and variance of a player's scoring, which take a matrix x as a parameter. To find x, we will find the metrics with the highest positive or negative correlation to scoring, and then build the estimator functions around that. The model is meant to predict the points scored in the next future game. Because our project presentation takes place after the NBA season is over, we will either be predicting points for the upcoming 2026-2027 data, or using the past data to predict games for the current season.</p>
+<h1 id="Project-Plan">Project Plan<a class="anchor-link" href="#Project-Plan">¶</a></h1><p>We plan to create a normal distribution model to predict scoring of a certain player in a given future game. To do this, we need to create an estimator function of the true mean and variance of a player's scoring, which take a matrix x as a parameter. To find x, we will find the metrics with the highest positive or negative correlation to scoring, and then build the estimator functions around the matrix of these metrics. Once we obtain this x matrix, we will use machine learning to learn the mean and variance respective estimator functions.  Because our project presentation takes place after the NBA regular season is over, we will either be predicting points for some playoff games, upcoming 2026-2027 data, or using the past data to predict games for the current season.</p>
 <h1 id="Dataset">Dataset<a class="anchor-link" href="#Dataset">¶</a></h1><p>We plan to use the official NBA game stat dataset. This dataset contains game-by-game statistical information for each player in a given nba season. Some of the statistics found in this data include minutes played, points,steals, rebounds, field goal percentage,etc. With just this basic data, since advanced metrics are formulas of our basic ones, we can broadcast columns of many advanced metrics as well. This data along with the advanced metrics derived from it will give us a lot of information which we can use to build the best estimator function described above. We plan to access this data set through the nba_api client found <a href="https://github.com/swar/nba_api/tree/master">here</a>. The game logs for 2003-2025 can be found in <em>our</em> github repo found <a href="https://github.com/dgvoelkel/CMPS3160project">here</a>. The game logs for the current season need to be continuely regenerated to account for the ongoing season. We build this contemporary data by using the <code>csv_generator</code> program that can be found in our github.</p>
 <h1 id="Collaboration-Plan">Collaboration Plan<a class="anchor-link" href="#Collaboration-Plan">¶</a></h1><p>We plan to use a shared Google Colab notebook, and have meetings as needed, likely around once a week, on Zoom or in person. We have also created a github repository to coordinate work on additional files such as the <code>csv_generator</code> program and to store the game stat logs for prior seasons.</p>
 </div>
@@ -7892,7 +7892,7 @@ a.anchor-link {
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[ ]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<div class="colab-df-container" id="df-21396f3b-1bc3-4c55-acc3-4b2c4acc4655">
+<div class="colab-df-container" id="df-be177471-a599-4913-8201-13b85884dc9f">
 <div>
 <style scoped="">
     .dataframe tbody tr th:only-of-type {
@@ -8080,132 +8080,132 @@ a.anchor-link {
 <td>...</td>
 </tr>
 <tr>
-<th>174028</th>
-<td>1642450</td>
-<td>Daniss Jenkins</td>
-<td>DET</td>
-<td>22500923</td>
-<td>2026-03-08</td>
-<td>DET @ MIA</td>
-<td>L</td>
-<td>15</td>
+<th>174081</th>
+<td>1642962</td>
+<td>Drake Powell</td>
+<td>BKN</td>
+<td>22500932</td>
+<td>2026-03-09</td>
+<td>BKN vs. MEM</td>
+<td>NaN</td>
+<td>7</td>
 <td>1</td>
-<td>4</td>
+<td>2</td>
 <td>...</td>
-<td>4</td>
-<td>2</td>
+<td>1</td>
 <td>0</td>
-<td>2</td>
+<td>0</td>
 <td>0</td>
 <td>1</td>
-<td>4</td>
-<td>4</td>
+<td>0</td>
+<td>3</td>
+<td>-4</td>
 <td>2025-26</td>
 <td>2025</td>
 </tr>
 <tr>
-<th>174029</th>
-<td>1642276</td>
-<td>Kel'el Ware</td>
-<td>MIA</td>
-<td>22500923</td>
-<td>2026-03-08</td>
-<td>MIA vs. DET</td>
-<td>W</td>
-<td>26</td>
-<td>6</td>
-<td>9</td>
-<td>...</td>
-<td>6</td>
+<th>174082</th>
+<td>1628971</td>
+<td>Bruce Brown</td>
+<td>DEN</td>
+<td>22500933</td>
+<td>2026-03-09</td>
+<td>DEN @ OKC</td>
+<td>NaN</td>
+<td>3</td>
 <td>0</td>
-<td>2</td>
-<td>2</td>
 <td>1</td>
-<td>4</td>
-<td>12</td>
-<td>11</td>
+<td>...</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>-3</td>
 <td>2025-26</td>
 <td>2025</td>
 </tr>
 <tr>
-<th>174030</th>
-<td>202699</td>
-<td>Tobias Harris</td>
-<td>DET</td>
-<td>22500923</td>
-<td>2026-03-08</td>
-<td>DET @ MIA</td>
-<td>L</td>
-<td>24</td>
-<td>3</td>
-<td>6</td>
-<td>...</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>3</td>
-<td>0</td>
-<td>2</td>
-<td>9</td>
-<td>-12</td>
-<td>2025-26</td>
-<td>2025</td>
-</tr>
-<tr>
-<th>174031</th>
-<td>1631105</td>
-<td>Jalen Duren</td>
-<td>DET</td>
-<td>22500923</td>
-<td>2026-03-08</td>
-<td>DET @ MIA</td>
-<td>L</td>
-<td>26</td>
-<td>10</td>
-<td>12</td>
-<td>...</td>
-<td>5</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>3</td>
-<td>24</td>
-<td>-18</td>
-<td>2025-26</td>
-<td>2025</td>
-</tr>
-<tr>
-<th>174032</th>
-<td>1631342</td>
-<td>Daeqwon Plowden</td>
-<td>SAC</td>
-<td>22500930</td>
-<td>2026-03-08</td>
-<td>SAC vs. CHI</td>
-<td>W</td>
-<td>35</td>
-<td>6</td>
-<td>13</td>
-<td>...</td>
-<td>3</td>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>4</td>
+<th>174083</th>
+<td>1630596</td>
+<td>Evan Mobley</td>
+<td>CLE</td>
+<td>22500931</td>
+<td>2026-03-09</td>
+<td>CLE vs. PHI</td>
+<td>NaN</td>
 <td>16</td>
+<td>2</td>
 <td>4</td>
+<td>...</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>5</td>
+<td>-7</td>
+<td>2025-26</td>
+<td>2025</td>
+</tr>
+<tr>
+<th>174084</th>
+<td>1641765</td>
+<td>Olivier-Maxence Prosper</td>
+<td>MEM</td>
+<td>22500932</td>
+<td>2026-03-09</td>
+<td>MEM @ BKN</td>
+<td>NaN</td>
+<td>8</td>
+<td>2</td>
+<td>4</td>
+<td>...</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>6</td>
+<td>1</td>
+<td>2025-26</td>
+<td>2025</td>
+</tr>
+<tr>
+<th>174085</th>
+<td>1642281</td>
+<td>Jaylon Tyson</td>
+<td>CLE</td>
+<td>22500931</td>
+<td>2026-03-09</td>
+<td>CLE vs. PHI</td>
+<td>NaN</td>
+<td>11</td>
+<td>1</td>
+<td>5</td>
+<td>...</td>
+<td>1</td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>3</td>
+<td>15</td>
 <td>2025-26</td>
 <td>2025</td>
 </tr>
 </tbody>
 </table>
-<p>174033 rows × 29 columns</p>
+<p>174086 rows × 29 columns</p>
 </div>
 <div class="colab-df-buttons">
 <div class="colab-df-container">
-<button class="colab-df-convert" onclick="convertToInteractive('df-21396f3b-1bc3-4c55-acc3-4b2c4acc4655')" style="display:none;" title="Convert this dataframe to an interactive table.">
+<button class="colab-df-convert" onclick="convertToInteractive('df-be177471-a599-4913-8201-13b85884dc9f')" style="display:none;" title="Convert this dataframe to an interactive table.">
 <svg height="24px" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg">
 <path d="M120-120v-720h720v720H120Zm60-500h600v-160H180v160Zm220 220h160v-160H400v160Zm0 220h160v-160H400v160ZM180-400h160v-160H180v160Zm440 0h160v-160H620v160ZM180-180h160v-160H180v160Zm440 0h160v-160H620v160Z"></path>
 </svg>
@@ -8252,12 +8252,12 @@ a.anchor-link {
   </style>
 <script>
       const buttonEl =
-        document.querySelector('#df-21396f3b-1bc3-4c55-acc3-4b2c4acc4655 button.colab-df-convert');
+        document.querySelector('#df-be177471-a599-4913-8201-13b85884dc9f button.colab-df-convert');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
       async function convertToInteractive(key) {
-        const element = document.querySelector('#df-21396f3b-1bc3-4c55-acc3-4b2c4acc4655');
+        const element = document.querySelector('#df-be177471-a599-4913-8201-13b85884dc9f');
         const dataTable =
           await google.colab.kernel.invokeFunction('convertToInteractive',
                                                     [key], {});
@@ -8275,7 +8275,7 @@ a.anchor-link {
       }
     </script>
 </div>
-<div id="id_af8cd0c3-e0a8-49ff-9630-ad7dc93abf0d">
+<div id="id_cb376ce4-0e2b-4545-aed8-db8b92ac6162">
 <style>
       .colab-df-generate {
         background-color: #E8F0FE;
@@ -8315,7 +8315,7 @@ a.anchor-link {
 <script>
       (() => {
       const buttonEl =
-        document.querySelector('#id_af8cd0c3-e0a8-49ff-9630-ad7dc93abf0d button.colab-df-generate');
+        document.querySelector('#id_cb376ce4-0e2b-4545-aed8-db8b92ac6162 button.colab-df-generate');
       buttonEl.style.display =
         google.colab.kernel.accessAllowed ? 'block' : 'none';
 
@@ -8539,27 +8539,27 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>count    169177.000000
-mean          0.563945
-std           0.235616
+<pre>count    169227.000000
+mean          0.563937
+std           0.235678
 min           0.000000
 25%           0.437500
 50%           0.569177
 75%           0.697970
 max           1.500000
 Name: TS_PCT, dtype: float64
-count    174033.000000
-mean          0.515004
-std           0.262572
+count    174086.000000
+mean          0.514985
+std           0.262631
 min           0.000000
 25%           0.375000
 50%           0.500000
 75%           0.666667
 max           1.500000
 Name: EFG_PCT, dtype: float64
-count    174033.000000
-mean          1.245990
-std           0.631807
+count    174086.000000
+mean          1.245949
+std           0.631917
 min           0.000000
 25%           0.916667
 50%           1.250000
@@ -8595,7 +8595,7 @@ Name: PPS, dtype: float64
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Seasons"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Points"</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">)</span> <span class="c1"># force yaxis to have a better range to improve visability.</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Lebron James Average Points Per Game (Seasonal)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"LeBron James Average Points Per Game (Seasonal)"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -8620,20 +8620,30 @@ Name: PPS, dtype: float64
 </div>
 </div>
 </div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>This LeBron graph is meaningful toward the end goal of the project, because we want to make predictions about a specific player. Because LeBron has the most data entries in this set, with 2003 and 2004 being just him, he will be a frequent testing player going forward in the project.</p>
+</div>
+</div>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-python"><pre><span></span><span class="c1"># RUN WHEN UPDATING WEBSITE, *MEYER* MOVE TO PERSONAL COLABFOLDER</span>
-<span class="sd">'''</span>
-<span class="sd">from google.colab import drive</span>
-<span class="sd">drive.mount('/content/drive')</span>
-<span class="sd">!jupyter nbconvert --to html /content/drive/MyDrive/ColabNotebooks/CMPS3160_Project.ipynb</span>
-<span class="sd">'''</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">google.colab</span><span class="w"> </span><span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">'/content/drive'</span><span class="p">)</span>
+<span class="err">!</span><span class="n">jupyter</span> <span class="n">nbconvert</span> <span class="o">--</span><span class="n">to</span> <span class="n">html</span> <span class="o">/</span><span class="n">content</span><span class="o">/</span><span class="n">drive</span><span class="o">/</span><span class="n">MyDrive</span><span class="o">/</span><span class="n">ColabNotebooks</span><span class="o">/</span><span class="n">CMPS3160_Project</span><span class="o">.</span><span class="n">ipynb</span>
 </pre></div>
 </div>
 </div>
@@ -8646,10 +8656,7 @@ Name: PPS, dtype: float64
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Mounted at /content/drive
-[NbConvertApp] Converting notebook /content/drive/MyDrive/ColabNotebooks/CMPS3160_Project.ipynb to html
-[NbConvertApp] WARNING | Alternative text is missing on 1 image(s).
-[NbConvertApp] Writing 350472 bytes to /content/drive/MyDrive/ColabNotebooks/CMPS3160_Project.html
+<pre>Drive already mounted at /content/drive; to attempt to forcibly remount, call drive.mount("/content/drive", force_remount=True).
 </pre>
 </div>
 </div>
